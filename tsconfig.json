@@ -1,0 +1,23 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.web.json",
+  "compilerOptions": {
+    "target": "es6",
+    "baseUrl": ".",
+    "esModuleInterop": true, // CommonJS와 ES 모듈 간의 호환성 지원
+    "skipLibCheck": true, // 라이브러리 타입 검사 건너뛰기
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "jsx": "preserve",
+    "outDir": "./dist",
+    "rootDir": "./src"
+  },
+  "include": ["env.d.ts", "src/**/*", "src/**/*.vue", "jsconfig.ts", "shims-vue.d.ts"],
+  "exclude": ["node_modules","dist"],
+
+  "references": [
+    {
+      "path": "./tsconfig.vite-config.json"
+    }
+  ]
+}
