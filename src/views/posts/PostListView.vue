@@ -36,8 +36,8 @@ const goDetail = id => {
 	router.push({
 		name: 'PostDetail',
 		params: { id },
-		query: { queryString: 'hello' },
-		hash: '#hashtag',
+		// query: { queryString: 'hello' },
+		// hash: '#hashtag',
 	});
 };
 </script>
