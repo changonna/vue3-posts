@@ -11,7 +11,8 @@
     },
     "jsx": "preserve",
     "outDir": "./dist",
-    "rootDir": "./src"
+    "rootDir": "./src",
+
   },
   "include": ["env.d.ts", "src/**/*", "src/**/*.vue", "jsconfig.ts", "shims-vue.d.ts"],
   "exclude": ["node_modules","dist"],
