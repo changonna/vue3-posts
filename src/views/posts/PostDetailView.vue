@@ -1,15 +1,15 @@
 <template>
 	<div>
-		<h2>제목</h2>
-		<p>내용</p>
+		<h2>{{ form.title }}</h2>
+		<p>{{ form.content }}</p>
 		<p class="text-muted">2020-01-01</p>
 		<hr class="my-4" />
 		<div class="row g-2">
 			<div class="col-auto">
-				<button class="btn btn-outline-dark" @click="goPrevPage">이전글</button>
+				<button class="btn btn-outline-dark" @click="">이전글</button>
 			</div>
 			<div class="col-auto">
-				<button class="btn btn-outline-dark" @click="goNextPage">다음글</button>
+				<button class="btn btn-outline-dark" @click="">다음글</button>
 			</div>
 			<div class="col-auto me-auto"></div>
 			<div class="col-auto">
@@ -33,7 +33,9 @@
 <script setup lang="ts">
 // import { ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { ref } from 'vue';
+import { reactive, ref } from 'vue';
+import { getPostById } from '@/api/posts';
+import type { Post } from '@/types';
 
 // const route = useRoute();
 // console.log(route.params);
@@ -49,7 +51,34 @@ import { ref } from 'vue';
 
 const route = useRoute();
 
-const id = route.params.id;
+const id = parseInt(route.params.id);
+
+/**
+ * ref
+ * 장점) 객체 할당 가능
+ * 단점) form.value.title, form.value.content 처럼 .value를 붙여야한다.
+ * ++ 장점) 일관성
+ * 
+ * reactive
+ * 장점) form.title, form.content 처럼 바로 접근 가능
+ * 단점) 객체 할당 불가능
+ * 
+ * --> 페이지 컴포넌트에서 웬만하면 ref를 사용하려고 한다.
+ */
+const form = ref({});
+// let form = reactive({});
+
+const fetchPost = () => {
+	const data = getPostById(id);
+	if(!data) {
+		return {};
+	}
+	form.value = { ...data };
+	// form.title = data.title;
+	// form.content = data.content;
+	
+}
+fetchPost();
 
 // const goPrevPage = () => {
 // 	router.push({
@@ -83,6 +112,8 @@ const deletePage = () => {
 		name: 'PostList',
 	});
 };
+
+
 </script>
 
 <style lang="scss" scoped></style>

@@ -1,4 +1,5 @@
-// axios
+import type { Post } from '@/types';
+
 const posts = [
 	{ id: 1, title: '제목1', content: '내용1', createdAt: '2021-01-01' },
 	{ id: 2, title: '제목2', content: '내용2', createdAt: '2021-01-02' },
@@ -9,6 +10,10 @@ const posts = [
 
 export function getPosts() {
 	return posts;
+}
+
+export function getPostById(id: number): Post | undefined {
+	return posts.find(posts => posts.id === id);
 }
 
 export default posts;
