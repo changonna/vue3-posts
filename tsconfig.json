@@ -2,11 +2,12 @@
   "compilerOptions": {
     "target": "ES2016",
     "module": "ESNext",
+    "verbatimModuleSyntax": true,
     "moduleResolution": "Node",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "verbatimModuleSyntax": true,
+    "resolveJsonModule": true,
     "lib": ["ES2016", "DOM", "DOM.Iterable"],
     "baseUrl": ".",
     "paths": {
