@@ -1,19 +1,23 @@
 import type { Post } from '@/types';
+import axios from 'axios';
+import { ref } from 'vue';
 
-const posts = [
-  { id: 1, title: '제목1', content: '내용1', createdAt: '2021-01-01' },
-  { id: 2, title: '제목2', content: '내용2', createdAt: '2021-01-02' },
-  { id: 3, title: '제목3', content: '내용3', createdAt: '2021-01-03' },
-  { id: 4, title: '제목4', content: '내용4', createdAt: '2021-01-04' },
-  { id: 5, title: '제목5', content: '내용5', createdAt: '2021-01-05' },
-];
-
-export function getPosts() {
-  return posts;
+export function getPosts(): Promise<Post[]> {
+  return axios.get('http://localhost:5000/posts');
 }
 
-export function getPostById(id: number): Post | undefined {
-  return posts.find(posts => posts.id === id);
+export function getPostById(id: number): Promise<Post | undefined> {
+  return axios.get(`http://localhost:5000/posts/${id}`);
 }
 
-export default posts;
+export function createPostById(post: Post) {
+  return axios.post('http://localhost:5000/posts', post);
+}
+
+export function updatePostById(id: number, post: Post) {
+  return axios.put(`http://localhost:5000/posts/${id}`, post);
+}
+
+export function deletePostById(id: number) {
+  return axios.delete(`http://localhost:5000/posts/${id}`);
+}

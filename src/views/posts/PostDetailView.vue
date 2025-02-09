@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h2>{{ form.title }}</h2>
-    <p>{{ form.content }}</p>
-    <p class="text-muted">2020-01-01</p>
+    <h2>{{ post.title }}</h2>
+    <p>{{ post.content }}</p>
+    <p class="text-muted">{{ post.createdAt }}</p>
     <hr class="my-4" />
     <div class="row g-2">
       <div class="col-auto">
@@ -21,7 +21,7 @@
         </button>
       </div>
       <div class="col-auto">
-        <button class="btn btn-outline-dark" @click="deletePage">삭제</button>
+        <button class="btn btn-outline-dark" @click="deletePost">삭제</button>
       </div>
     </div>
     <!-- <p>params: {{ $route.params }}</p>
@@ -32,10 +32,10 @@
 
 <script setup lang="ts">
 // import { ref, watch } from 'vue';
-import { useRoute, useRouter } from "vue-router";
-import { reactive, ref } from "vue";
-import { getPostById } from "@/api/posts";
-import type { Post } from "@/types";
+import { useRoute, useRouter } from 'vue-router';
+import { reactive, ref } from 'vue';
+import { deletePostById, getPostById } from '@/api/posts';
+import type { Post } from '@/types';
 
 // const route = useRoute();
 // console.log(route.params);
@@ -56,28 +56,35 @@ const props = defineProps({
 /**
  * ref
  * 장점) 객체 할당 가능
- * 단점) form.value.title, form.value.content 처럼 .value를 붙여야한다.
+ * 단점) post.value.title, post.value.content 처럼 .value를 붙여야한다.
  * ++ 장점) 일관성
  *
  * reactive
- * 장점) form.title, form.content 처럼 바로 접근 가능
+ * 장점) post.title, post.content 처럼 바로 접근 가능
  * 단점) 객체 할당 불가능
  *
  * --> 페이지 컴포넌트에서 웬만하면 ref를 사용하려고 한다.
  */
-let form = ref({});
-// let form = reactive({});
+let post = ref({});
+// let post = reactive({});
 
-const fetchPost = () => {
-  const data = props.id !== undefined ? getPostById(props.id) : null;
-  if (!data) {
-    return null;
+const fetchPost = async () => {
+  try {
+    const { data } = await getPostById(props.id);
+    setPost(data);
+  } catch (error) {
+    console.error(error);
   }
-  form.value = { ...data };
-  // form.title = data.title;
-  // form.content = data.content;
+  // post.title = data.title;
+  // post.content = data.content;
 };
 fetchPost();
+
+const setPost = ({ title, content, createdAt }: Post) => {
+  post.value.title = title;
+  post.value.content = content;
+  post.value.createdAt = createdAt;
+};
 
 // const goPrevPage = () => {
 // 	router.push({
@@ -91,25 +98,29 @@ fetchPost();
 const router = useRouter();
 const goListPage = () => {
   router.push({
-    name: "PostList",
+    name: 'PostList',
   });
 };
 
 const goEditPage = () => {
   router.push({
-    name: "PostEdit",
+    name: 'PostEdit',
     params: {
-      id,
+      id: props.id,
     },
   });
 };
 
-const deletePage = () => {
-  // 삭제 요청
-  // 페이지 이동
-  router.push({
-    name: "PostList",
-  });
+const deletePost = async () => {
+  try {
+    if (confirm('정말 삭제하시겠습니까?') === false) {
+      return;
+    }
+    const res = await deletePostById(props.id);
+    router.push({ name: 'PostList' });
+  } catch (error) {
+    console.error(error);
+  }
 };
 </script>
 

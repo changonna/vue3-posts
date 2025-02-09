@@ -1,0 +1,10 @@
+{
+  "posts": [
+    {
+      "title": "a",
+      "content": "b",
+      "createdAt": 1739095289173,
+      "id": 1
+    }
+  ]
+}
