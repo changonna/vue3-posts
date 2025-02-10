@@ -2,8 +2,8 @@ import type { Post } from '@/types';
 import axios from 'axios';
 import { ref } from 'vue';
 
-export function getPosts(): Promise<Post[]> {
-  return axios.get('http://localhost:5000/posts');
+export function getPosts(params): Promise<Post[]> {
+  return axios.get('http://localhost:5000/posts', { params });
 }
 
 export function getPostById(id: number): Promise<Post | undefined> {

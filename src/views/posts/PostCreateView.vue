@@ -58,7 +58,7 @@ const clickSave = async (e: Event) => {
   try {
     const post: Post = {
       ...form.value,
-      createdAt: Date.now(),
+      createdAt: new Date().toLocaleDateString(),
     };
     await createPostById(post);
 
