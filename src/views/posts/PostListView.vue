@@ -65,7 +65,7 @@
 <script setup>
 import { getPosts } from '@/api/posts';
 import PostItem from '@/components/posts/PostItem.vue';
-import { ref, watch } from 'vue';
+import { ref, watch, watchEffect } from 'vue';
 import { useRouter } from 'vue-router';
 
 const posts = ref([]);
@@ -117,9 +117,15 @@ const nextPage = () => {
 };
 
 watch(
-  () => [params.value._page, params.value.title_like, params.value._limit],
+  () => [params.value.title_like, params.value._limit],
   () => {
     params.value._page = 1;
+    fetchPosts();
+  },
+);
+watch(
+  () => [params.value._page],
+  () => {
     fetchPosts();
   },
 );
