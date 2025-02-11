@@ -50,7 +50,7 @@ import type { Post } from '@/types';
 // });
 
 const props = defineProps({
-  id: Number,
+  id: String,
 });
 
 /**
