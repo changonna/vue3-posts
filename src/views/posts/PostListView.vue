@@ -30,33 +30,11 @@
           ></PostItem>
         </div>
       </div>
-      <nav class="mt-5" aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-          <li class="page-item" :class="{ disabled: params._page === 1 }">
-            <a class="page-link" aria-label="Previous" @click="prevPage()">
-              <span aria-hidden="true">&laquo;</span>
-              <span class="sr-only"></span>
-            </a>
-          </li>
-          <li
-            v-for="page in pageCount"
-            :key="page"
-            class="page-item"
-            :class="{ active: page === params._page }"
-          >
-            <a class="page-link" @click.prevent="goPage(page)">{{ page }}</a>
-          </li>
-          <li
-            class="page-item"
-            :class="{ disabled: params._page === pageCount }"
-          >
-            <a class="page-link" aria-label="Next" @click="nextPage()">
-              <span aria-hidden="true">&raquo;</span>
-              <span class="sr-only"></span>
-            </a>
-          </li>
-        </ul>
-      </nav>
+      <AppPagination
+        @update-page="page => (params._page = page)"
+        v-model:pageCount="pageCount"
+        v-model:currentPage="params._page"
+      />
     </div>
     <hr class="my-5" />
   </div>
@@ -64,8 +42,9 @@
 
 <script setup>
 import { getPosts } from '@/api/posts';
+import AppPagination from '@/components/AppPagination.vue';
 import PostItem from '@/components/posts/PostItem.vue';
-import { ref, watch, watchEffect } from 'vue';
+import { ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 
 const posts = ref([]);
@@ -100,20 +79,6 @@ const goDetail = id => {
     // query: { queryString: 'hello' },
     // hash: '#hashtag',
   });
-};
-
-const goPage = page => {
-  params.value._page = page;
-};
-const prevPage = () => {
-  if (params.value._page > 1) {
-    params.value._page--;
-  }
-};
-const nextPage = () => {
-  if (params.value._page < pageCount.value) {
-    params.value._page++;
-  }
 };
 
 watch(
