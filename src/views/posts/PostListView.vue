@@ -3,33 +3,25 @@
     <h2>게시글 목록</h2>
     <hr />
     <form @submit.prevent>
-      <div class="row g-3">
-        <div class="col">
-          <input v-model="params.title_like" type="text" class="form-control" />
-        </div>
-        <div class="col">
-          <select v-model="params._limit" class="form-select">
-            <option value="3">3개씩</option>
-            <option value="6">6개씩</option>
-            <option value="9">9개씩</option>
-          </select>
-        </div>
-      </div>
+      <AppFilter
+        v-model:title="params.title_like"
+        v-model:limit="params._limit"
+      ></AppFilter>
     </form>
     <hr class="my-4" />
     <div v-if="!posts.length">no data</div>
     <div v-else>
-      <div class="row g-3">
-        <div v-for="post in posts" :key="post.id" class="col-4">
+      <AppGrid :items="posts" col-class="col-4">
+        <template #item="{ item }">
           <PostItem
             style="cursor: pointer"
-            :title="post.title"
-            :content="post.content"
-            :createdAt="post.createdAt"
-            @click="goDetail(post.id)"
+            :title="item.title"
+            :content="item.content"
+            :createdAt="item.createdAt"
+            @click="goDetail(item.id)"
           ></PostItem>
-        </div>
-      </div>
+        </template>
+      </AppGrid>
       <AppPagination
         @update-page="page => (params._page = page)"
         v-model:pageCount="pageCount"
@@ -43,9 +35,11 @@
 <script setup>
 import { getPosts } from '@/api/posts';
 import AppPagination from '@/components/AppPagination.vue';
+import AppGrid from '@/components/AppGrid.vue';
 import PostItem from '@/components/posts/PostItem.vue';
 import { ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
+import AppFilter from '@/components/AppFilter.vue';
 
 const posts = ref([]);
 const router = useRouter();

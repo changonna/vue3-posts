@@ -3,7 +3,7 @@
     <div class="mb-3">
       <label for="title" class="form-label">제목</label>
       <input
-        :value="props.title"
+        :value="title"
         @input="$emit('update:title', $event.target.value)"
         class="form-control"
         id="title"
@@ -12,7 +12,7 @@
     <div class="mb-3">
       <label for="content" class="form-label">내용</label>
       <textarea
-        :value="props.content"
+        :value="content"
         @input="$emit('update:content', $event.target.value)"
         class="form-control"
         id="content"
@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps({
+defineProps({
   title: String,
   content: String,
 });
