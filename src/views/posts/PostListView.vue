@@ -55,9 +55,9 @@ const params = ref({
 
 const fetchPosts = async () => {
   try {
-    const { data, headers } = await getPosts(params.value);
+    const { data, totalCount } = await getPosts(params.value);
     posts.value = data;
-    pageCount.value = Math.ceil(headers['x-total-count'] / params.value._limit);
+    pageCount.value = Math.ceil(totalCount / params.value._limit);
   } catch (error) {
     console.error(error);
   }

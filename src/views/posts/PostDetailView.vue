@@ -70,8 +70,8 @@ let post = ref({});
 
 const fetchPost = async () => {
   try {
-    const { data } = await getPostById(props.id);
-    setPost(data);
+    const post = await getPostById(props.id);
+    setPost(post);
   } catch (error) {
     console.error(error);
   }

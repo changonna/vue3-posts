@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const create = (baseURL, options) => {
+const create = (baseURL: string, options?: object) => {
   const instance = axios.create(Object.assign({ baseURL }, options));
   return instance;
 };

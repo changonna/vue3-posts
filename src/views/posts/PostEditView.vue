@@ -29,15 +29,19 @@ import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 const props = defineProps({
-  id: Number,
+  id: {
+    type: Number,
+    required: true,
+  },
 });
 
 const router = useRouter();
 const route = useRoute();
 const id = props.id;
 const form = ref({
-  title: null,
-  content: null,
+  id: 0,
+  title: '',
+  content: '',
 });
 
 const goDetailPage = () => {
@@ -49,18 +53,18 @@ const goDetailPage = () => {
 
 const fetchPost = async () => {
   try {
-    const { data } = await getPostById(id);
-    setForm(data);
+    const post = await getPostById(id);
+    setForm(post);
   } catch (error) {
     console.error(error);
   }
 };
 fetchPost();
 
-const setForm = ({ title, content, createdAt }: Post) => {
+const setForm = ({ title, content }: Post) => {
   form.value.title = title;
   form.value.content = content;
-  form.value.createdAt = createdAt;
+  // form.value.createdAt = createdAt;
 };
 
 const getForm = () => {
