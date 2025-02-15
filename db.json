@@ -1,70 +1,22 @@
 {
   "posts": [
     {
-      "title": null,
-      "content": null,
-      "createdAt": "2025. 2. 12.",
-      "id": 14
-    },
-    {
-      "title": null,
-      "content": null,
-      "createdAt": "2025. 2. 12.",
-      "id": 15
-    },
-    {
-      "title": null,
-      "content": null,
-      "createdAt": "2025. 2. 12.",
-      "id": 16
-    },
-    {
-      "title": null,
-      "content": null,
-      "createdAt": "2025. 2. 12.",
-      "id": 17
-    },
-    {
-      "title": null,
-      "content": null,
-      "createdAt": "2025. 2. 12.",
-      "id": 18
-    },
-    {
-      "title": null,
-      "content": null,
-      "createdAt": "2025. 2. 12.",
-      "id": 19
-    },
-    {
-      "title": "b",
-      "content": "b",
-      "createdAt": "2025. 2. 12.",
-      "id": 22
-    },
-    {
-      "title": "c",
-      "content": "c",
-      "createdAt": "2025. 2. 12.",
-      "id": 23
+      "id": 1,
+      "title": "a마룰라ak",
+      "content": "b마\n룰라ak",
+      "createdAt": 1739606098921
     },
     {
       "title": "3",
       "content": "3",
-      "createdAt": "2025. 2. 12.",
-      "id": 25
+      "createdAt": 1739608052804,
+      "id": 3
     },
     {
-      "title": "a",
-      "content": "a",
-      "createdAt": "2025. 2. 13.",
-      "id": 26
-    },
-    {
-      "title": "g",
-      "content": "g",
-      "createdAt": "2025. 2. 13.",
-      "id": 27
+      "title": "ㅁ",
+      "content": "ㅁ",
+      "createdAt": "2025. 2. 15.",
+      "id": 5
     }
   ]
 }

@@ -11,7 +11,8 @@ module.exports = {
     'plugin:prettier/recommended', // ✅ Prettier 설정 추가
   ],
   plugins: ['prettier'],
-  parser: 'vue-eslint-parser', // vie 파일 파싱
+  parser: '@typescript-eslint/parser', // TypeScript 파서 설정
+
   env: {
     'vue/setup-compiler-macros': true,
   },

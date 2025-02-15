@@ -12,20 +12,20 @@ export async function getPosts(
 }
 
 export async function getPostById(id: Post['id']): Promise<Post> {
-  const response = await posts.get(id);
+  const response = await posts.get(`${id}`);
   return response.data;
 }
 
-export async function createPostById(post: Post) {
+export async function createPostById(post: Omit<Post, 'id'>) {
   const response = await posts.post('/', post);
   return response.data;
 }
 
-export async function updatePostById(id: string, post: Post) {
-  const response = await posts.put(id, post);
+export async function updatePostById(id: number, post: Post) {
+  const response = await posts.put(`${id}`, post);
   return response.data;
 }
 
-export function deletePostById(id: string) {
-  return posts.delete(id);
+export function deletePostById(id: number) {
+  return posts.delete(`${id}`);
 }

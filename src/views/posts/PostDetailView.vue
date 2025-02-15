@@ -50,7 +50,10 @@ import type { Post } from '@/types';
 // });
 
 const props = defineProps({
-  id: String,
+  id: {
+    type: Number,
+    required: true,
+  },
 });
 
 /**
@@ -65,7 +68,12 @@ const props = defineProps({
  *
  * --> 페이지 컴포넌트에서 웬만하면 ref를 사용하려고 한다.
  */
-let post = ref({});
+let post = ref<Post>({
+  id: 0,
+  title: '',
+  content: '',
+  createdAt: '',
+});
 // let post = reactive({});
 
 const fetchPost = async () => {

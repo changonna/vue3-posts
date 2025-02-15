@@ -32,14 +32,14 @@ const goListPage = () => {
 };
 
 const form = ref({
-  title: null,
-  content: null,
+  title: '',
+  content: '',
 });
 
 const clickSave = async (e: Event) => {
   e.preventDefault();
   try {
-    const post: Post = {
+    const post: Omit<Post, 'id'> = {
       ...form.value,
       createdAt: new Date().toLocaleDateString(),
     };
