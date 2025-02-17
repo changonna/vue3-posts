@@ -18,11 +18,13 @@
         <button class="btn btn-primary">저장</button>
       </template>
     </PostForm>
+    <AppAlert v-if="showAlert" :message="message" :type="vType" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { getPostById, updatePostById } from '@/api/posts';
+import AppAlert from '@/components/AppAlert.vue';
 import PostForm from '@/components/posts/PostForm.vue';
 import type { Post } from '@/types';
 import { ref } from 'vue';
@@ -80,11 +82,27 @@ const clickSave = async (e: Event) => {
     const newPost = getForm();
     await updatePostById(id, newPost);
 
+    alert('게시글이 수정되었습니다.', 'success');
     router.push({ name: 'PostDetail', params: { id } });
   } catch (error) {
+    alert('네트워크 오류가 발생했습니다.');
     console.error(error);
   }
 };
+
+// alert region
+const showAlert = ref(false);
+const message = ref('');
+const vType = ref('');
+const alert = (msg: string, type = 'error') => {
+  message.value = msg;
+  showAlert.value = true;
+  vType.value = type;
+  setTimeout(() => {
+    showAlert.value = false;
+  }, 2000);
+};
+// end region
 </script>
 
 <style lang="scss" scoped></style>
