@@ -11,16 +11,14 @@
 
 <script setup lang="ts">
 import { useAlertStore } from '@/store/alertStore';
-import { storeToRefs } from 'pinia';
 import { computed } from 'vue';
 
 const alertStore = useAlertStore();
-const { isShowAlert, message, vType } = storeToRefs(alertStore);
 
-const isVisible = computed(() => isShowAlert.value);
-const msg = computed(() => message.value);
+const isVisible = computed(() => alertStore.isShowAlert);
+const msg = computed(() => alertStore.message);
 const alertClass = computed(() => {
-  return vType.value === 'error' ? 'alert-danger' : 'alert-success';
+  return alertStore.vType === 'error' ? 'alert-danger' : 'alert-success';
 });
 </script>
 
