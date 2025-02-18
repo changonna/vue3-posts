@@ -1,30 +1,26 @@
 <template>
-  <div class="alert-area alert" :class="styleClass" role="alert">
-    {{ message }}
+  <div
+    v-if="isVisible"
+    class="alert-area alert"
+    :class="alertClass"
+    role="alert"
+  >
+    {{ msg }}
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, toRefs } from 'vue';
+import { useAlertStore } from '@/store/alertStore';
+import { storeToRefs } from 'pinia';
+import { computed } from 'vue';
 
-const props = defineProps({
-  message: {
-    type: String,
-    required: true,
-  },
-  type: {
-    type: String,
-    default: 'error',
-    validator: (value: string) => {
-      return ['error', 'success'].includes(value);
-    },
-  },
-});
+const alertStore = useAlertStore();
+const { isShowAlert, message, vType } = storeToRefs(alertStore);
 
-const { message, type } = toRefs(props);
-
-const styleClass = computed(() => {
-  return type.value === 'error' ? 'alert-danger' : 'alert-success';
+const isVisible = computed(() => isShowAlert.value);
+const msg = computed(() => message.value);
+const alertClass = computed(() => {
+  return vType.value === 'error' ? 'alert-danger' : 'alert-success';
 });
 </script>
 
