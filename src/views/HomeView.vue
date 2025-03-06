@@ -4,10 +4,12 @@
     <p>$route.path: {{ $route.path }}</p>
     <p>$route.name: {{ $route.name }}</p>
     <button class="btn btn-primary" @click="goAboutPage">About</button>
+    <AppImage image-string="star_icon" />
   </div>
 </template>
 
 <script setup>
+import AppImage from '@/components/AppImage.vue';
 import { useRoute, useRouter } from 'vue-router';
 
 const route = useRoute();
