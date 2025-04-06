@@ -1,21 +1,17 @@
-import type { AlertType } from '@/types/alert';
+import type { Alert, AlertType } from '@/types/alert';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
 export const useAlertStore = defineStore('alertStore', () => {
-  const isShowAlert = ref(false);
-  const message = ref('');
-  const vType = ref<AlertType>();
+  const alerts = ref<Alert[]>([]);
 
   const showAlert = (msg: string, type: AlertType = 'error') => {
-    message.value = msg;
-    vType.value = type;
-    isShowAlert.value = true;
+    alerts.value.push({ message: msg, alertType: type });
 
     setTimeout(() => {
-      isShowAlert.value = false;
+      alerts.value.shift();
     }, 2000);
   };
 
-  return { isShowAlert, message, vType, showAlert };
+  return { showAlert, alerts };
 });

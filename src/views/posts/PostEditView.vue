@@ -65,7 +65,6 @@ fetchPost();
 const setForm = ({ title, content }: Post) => {
   form.value.title = title;
   form.value.content = content;
-  // form.value.createdAt = createdAt;
 };
 
 const getForm = () => {
@@ -82,17 +81,17 @@ const clickSave = async (e: Event) => {
     await updatePostById(id, newPost);
 
     alert('게시글이 수정되었습니다.', 'success');
-    // router.push({ name: 'PostDetail', params: { id } });
+    router.push({ name: 'PostDetail', params: { id } });
   } catch (error) {
     alert('네트워크 오류가 발생했습니다.');
     console.error(error);
   }
 };
 
-// alert region
+//#region alert
 const alertStore = useAlertStore();
 const alert = alertStore.showAlert;
-// end region
+//#endregion
 </script>
 
 <style lang="scss" scoped></style>

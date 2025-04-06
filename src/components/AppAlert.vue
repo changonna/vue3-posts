@@ -1,27 +1,29 @@
 <template>
-  <Transition name="slide">
+  <TransitionGroup tag="div" name="slide" class="alert-area">
     <div
-      v-if="isVisible"
-      class="alert-area alert"
-      :class="alertClass"
+      v-for="({ message, alertType }, index) in alerts"
+      :key="index"
+      class="alert"
+      :class="alertClass(alertType)"
       role="alert"
     >
-      {{ msg }}
+      {{ message }}
     </div>
-  </Transition>
+  </TransitionGroup>
 </template>
 
 <script setup lang="ts">
 import { useAlertStore } from '@/store/alertStore';
+import type { AlertType } from '@/types/alert';
 import { computed } from 'vue';
 
 const alertStore = useAlertStore();
 
-const isVisible = computed(() => alertStore.isShowAlert);
-const msg = computed(() => alertStore.message);
-const alertClass = computed(() => {
-  return alertStore.vType === 'error' ? 'alert-danger' : 'alert-success';
-});
+const alerts = computed(() => alertStore.alerts);
+
+const alertClass = (type: AlertType) => {
+  return type === 'error' ? 'alert-danger' : 'alert-success';
+};
 </script>
 
 <style scoped>
