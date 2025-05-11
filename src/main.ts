@@ -5,12 +5,16 @@ import { createPinia } from 'pinia';
 
 import App from './App.vue';
 import router from '@/router';
+import funcPlugins from './plugins/func';
+import objPlugins from './plugins/obj';
 
 const app = createApp(App);
 const pinia = createPinia();
 
 app.use(router);
 app.use(pinia);
+app.use(funcPlugins);
+app.use(objPlugins, { name: 'ncg' });
 app.mount('#app');
 
 import 'bootstrap/dist/js/bootstrap.js';
